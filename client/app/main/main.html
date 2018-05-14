@@ -6,14 +6,18 @@
 <table class="table" border="1">
   <thead>
     <tr ng-repeat="semana in semanas | limitTo: 1 : week">
-      <th>{{week}}</th>
-      <th ng-repeat="dia in semana | limitTo: 5">{{dia | date:'EEEE d-MM-yyyy'}}</th>
+      <th></th>
+      <th class="text-center" style="font-size:16px" ng-repeat="dia in semana | limitTo: 5">{{dia | date:'d/MM'}}</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="hour in hours">
-      <td>{{hour}}<sup>a</sup></td>
-      <td ng-repeat="dia in semanas[week]" ng-click="reservar(hour, dia)">
+      <td><b>{{hour}}<sup>a</sup></b></td>
+      <td ng-repeat="dia in semanas[week]">
+        <div ng-if="fillReservas(hour,dia)">
+          <b>{{fillReservas(hour,dia).curso | uppercase}}</b>
+        </div>
+        <div style="cursor:pointer;" ng-if="!fillReservas(hour,dia)" ng-click="reservar(hour,dia)">&nbsp;</div>
       </td>
     </tr>
   </tbody>

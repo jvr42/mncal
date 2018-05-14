@@ -22,6 +22,25 @@ angular.module('mncalApp')
       });
     }
 
+    /**
+     * Opens a reserva modal
+     * @param  {Object} scope      - an object to be merged with modal's scope
+     * @param  {String} modalClass - (optional) class(es) to be applied to the modal
+     * @return {Object}            - the instance $modal.open() returns
+     */
+    function openReservaModal(scope, modalClass) {
+      var modalScope = $rootScope.$new();
+      scope = scope || {};
+      modalClass = modalClass || 'modal-default';
+
+      angular.extend(modalScope, scope);
+
+      return $modal.open({
+        templateUrl: 'components/modal/reservaModal.html',
+        windowClass: modalClass,
+        scope: modalScope
+      });
+    }
     // Public API here
     return {
 
@@ -29,7 +48,7 @@ angular.module('mncalApp')
       confirm: {
 
         /**
-         * Create a function to open a delete confirmation modal (ex. ng-click='myModalFn(name, arg1, arg2...)')
+let
          * @param  {Function} del - callback, ran when delete is confirmed
          * @return {Function}     - the function to open the modal (ex. myModalFn)
          */
@@ -75,32 +94,38 @@ angular.module('mncalApp')
       },
 
       reserve: {
-        create: function(created, hour,fecha) {
+        create: function(created, hour, fecha) {
           created = created || angular.noop;
           return function() {
             var args = Array.prototype.slice.call(arguments)
-            var modal = openModal({
+
+            var modalReserva = openReservaModal({
               modal: {
                 dismissable: true,
-                title: 'Reservar Bloque',
-                html: '<p>Bloque: '+ hour +' | fecha: '+ fecha +'</p>',
+                text: 'Ingresa tu nombre y el curso que quieres reservar.',
+                hour: args[0],
+                fecha: args[1],
+                profesor: undefined,
+                curso: undefined,
                 buttons: [{
-                  classes: 'btn-danger',
-                  text: 'Delete',
-                  click: function(e) {
-                    modal.close(e);
-                  }
-                }, {
                   classes: 'btn-default',
-                  text: 'Cancel',
+                  text: 'Cancelar',
                   click: function(e) {
-                    modal.dismiss(e);
+                    modalReserva.dismiss(e);
                   }
-                }]
+                },
+                {
+                  classes: 'btn-primary',
+                  text: 'Reservar',
+                  click: function(m) {
+                    modalReserva.close(m);
+                  }
+                }
+                ]
               }
             }, 'modal-primary');
 
-            modal.result.then(function(event) {
+            modalReserva.result.then(function(event) {
               created.apply(event, args);
             });
           }

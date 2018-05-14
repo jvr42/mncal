@@ -4,9 +4,10 @@ var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 var Schema = mongoose.Schema;
 
 var ThingSchema = new Schema({
-  name: String,
-  info: String,
-  active: Boolean
+  bloque: Number,
+  profesor: String,
+  curso: String,
+  fecha: Date
 });
 
 module.exports = mongoose.model('Thing', ThingSchema);

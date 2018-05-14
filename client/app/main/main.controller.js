@@ -121,6 +121,18 @@ angular.module('mncalApp')
     $scope.today = new Date();
     $scope.hours = [1,2,3,4,5,6,7,8,9,10];
 
+    $http.get('api/things/').then(function(response){
+      $scope.reservas = response.data;
+      socket.syncUpdates('thing',$scope.reservas);
+    }); 
+
+    $scope.fillReservas = function(hour,fecha){
+      var r = $scope.reservas.find(function(reserva){
+          return reserva.bloque == hour && new Date(reserva.fecha).getTime() == fecha.getTime()
+      })
+      return r
+    }
+
     $scope.next = function(){
       $scope.week ++;
       if ($scope.week == 5){
@@ -135,13 +147,22 @@ angular.module('mncalApp')
       $scope.week--;
     }
 
-
-    $scope.reservar = function(hour, fecha){
+     $scope.reservar = function(hour, fecha){
 
       var modal = Modal.reserve.create(function(){
-        console.log("reserva creada")
-      }, hour, fecha);
-      modal();
+        var reserva = {
+          bloque: this.hour,
+          fecha: this.fecha,
+          profesor: this.profesor,
+          curso: this.curso
+        }
+
+        $http.post('api/things/',reserva).then(function(response){
+          console.log(response.data)
+        })
+      });
+      
+      modal(hour, fecha)
     }
 
   });

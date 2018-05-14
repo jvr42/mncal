@@ -74,6 +74,14 @@ exports.show = function(req, res) {
     .catch(handleError(res));
 };
 
+// Gets a single Thing from the DB with a specific hour and date
+exports.fill = function(req, res) {
+  Thing.findAsync({bloque: req.params.hora, fecha: req.params.fecha})
+    .then(handleEntityNotFound(res))
+    .then(responseWithResult(res))
+    .catch(handleError(res));
+};
+
 // Creates a new Thing in the DB
 exports.create = function(req, res) {
   Thing.createAsync(req.body)
