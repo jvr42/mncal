@@ -113,12 +113,15 @@ angular.module('mncalApp')
     offset[4] = lastWeek;
 
     semanas = offset;
+
+    console.log(semanas)
     // ----------------------
 
 
-    $scope.week = 0;
-    $scope.semanas = semanas;
     $scope.today = new Date();
+    $scope.semanas = semanas;
+    $scope.week = 0;
+
     $scope.hours = [1,2,3,4,5,6,7,8,9,10];
 
     $http.get('api/things/').then(function(response){
@@ -163,6 +166,10 @@ angular.module('mncalApp')
       });
       
       modal(hour, fecha)
+    }
+
+    $scope.deleteReserva = function(id){
+      $http.delete('api/things/'+ id);
     }
 
   });

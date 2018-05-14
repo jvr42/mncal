@@ -11,7 +11,26 @@
 	<label>Profesor:</label>
 	<input type="input" class="form-control" placeholder="" ng-model="modal.profesor">
 	<label>Curso:</label>
-	<input type="input" class="form-control" placeholder="" ng-model="modal.curso">
+	<select class="form-control" ng-model="modal.curso">
+		<option value="1ºA">1ºA</option>
+		<option value="1ºB">1ºB</option>
+		<option value="2ºA">2ºA</option>
+		<option value="2ºB">2ºB</option>
+		<option value="3ºA">3ºA</option>
+		<option value="3ºB">3ºB</option>
+		<option value="4ºA">4ºA</option>
+		<option value="4ºB">4ºB</option>
+		<option value="5ºA">5ºA</option>
+		<option value="5ºB">5ºB</option>
+		<option value="6ºA">6ºA</option>
+		<option value="6ºB">6ºB</option>
+		<option value="7ºA">7ºA</option>
+		<option value="7ºB">7ºB</option>
+		<option value="8ºA">8ºA</option>
+		<option value="8ºB">8ºB</option>
+		<option value="1º MEDIO A">1º MEDIO A</option>
+		<option value="1º MEDIO B">1º MEDIO B</option>
+	</select>
 </div>
 <div class="modal-footer">
 	<button ng-repeat="button in modal.buttons" ng-class="button.classes" ng-click="button.click(modal)" ng-bind="button.text" class="btn"></button>
