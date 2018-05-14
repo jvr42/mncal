@@ -1,0 +1,25 @@
+<navbar></navbar>
+
+
+<div class="container text-center">
+<h3>Hoy: {{today | date:'d-MM-yyyy'}}</h3>
+<table class="table" border="1">
+  <thead>
+    <tr ng-repeat="semana in semanas | limitTo: 1 : week">
+      <th>{{week}}</th>
+      <th ng-repeat="dia in semana | limitTo: 5">{{dia | date:'EEEE d-MM-yyyy'}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="hour in hours">
+      <td>{{hour}}<sup>a</sup></td>
+      <td ng-repeat="dia in semanas[week]" ng-click="reservar(hour, dia)">
+      </td>
+    </tr>
+  </tbody>
+</table>
+  <span class="btn btn-success glyphicon glyphicon-chevron-left" ng-click="previous()"></span>
+  <span class="btn btn-success glyphicon glyphicon-chevron-right" ng-click="next()"></span>
+</div>
+
+<footer></footer>
