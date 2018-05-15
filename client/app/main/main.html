@@ -1,5 +1,4 @@
-<navbar></navbar>
-
+<navbar></navbar>\
 
 <div class="container text-center">
 <h3>Hoy: {{today | date:'d-MM-yyyy'}}</h3>
@@ -21,12 +20,12 @@
   <tbody>
     <tr ng-repeat="hour in hours">
       <td><b>{{hour}}<sup>a</sup></b></td>
-      <td ng-repeat="dia in semanas[week]">
+      <td style="padding: 0;vertical-align: middle;" ng-repeat="dia in semanas[week]">
         <div ng-if="fillReservas(hour,dia)">
           <b style="color: #0040FF;cursor:pointer;" tooltip="{{fillReservas(hour,dia).profesor}}">{{fillReservas(hour,dia).curso | uppercase}}</b>
           <button class="btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteReserva(fillReservas(hour,dia)._id)"></button>
         </div>
-        <div style="cursor:pointer;" ng-if="!fillReservas(hour,dia)" ng-click="reservar(hour,dia)">&nbsp;</div>
+        <div ng-if="!fillReservas(hour,dia)" ng-click="reservar(hour,dia)">&nbsp;</div>
       </td>
     </tr>
   </tbody>
