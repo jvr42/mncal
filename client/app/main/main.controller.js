@@ -83,9 +83,9 @@ angular.module('mncalApp')
 
     missing = [];
 
-    offset[4].reverse();
+    offset[offset.length-1].reverse();
 
-    var lastDay = offset[4].find(function(dia) {
+    var lastDay = offset[offset.length-1].find(function(dia) {
       if (dia)
         return true
       else
@@ -99,7 +99,7 @@ angular.module('mncalApp')
 
     missing = missing.reverse();
 
-    var lastWeek = missing.concat(offset[4]);
+    var lastWeek = missing.concat(offset[offset.length-1]);
 
     lastWeek = lastWeek.filter(function(dia) {
       if (dia)
@@ -110,7 +110,7 @@ angular.module('mncalApp')
 
     lastWeek.reverse();
 
-    offset[4] = lastWeek;
+    offset[offset.length-1] = lastWeek;
 
     semanas = offset;
     // ----------------------
@@ -143,14 +143,14 @@ angular.module('mncalApp')
 
     $scope.next = function(){
       $scope.week ++;
-      if ($scope.week == 5){
+      if ($scope.week == $scope.semanas.length){
         $scope.week = 0;
       }
     }
 
     $scope.previous = function(){
       if ($scope.week == 0){
-        $scope.week = 5;
+        $scope.week = $scope.semanas.length;
       }
       $scope.week--;
     }

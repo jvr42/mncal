@@ -3,7 +3,7 @@
 <table class="table" border="1">
   <thead style="background-color:#F2F2F2">
     <tr>
-      <th></th>
+      <th class="text-center">Semana</th>
       <th class="text-center">LUNES</th>
       <th class="text-center">MARTES</th>
       <th class="text-center">MIERCOLES</th>
@@ -11,7 +11,7 @@
       <th class="text-center">VIERNES</th>
     </tr>
     <tr ng-repeat="semana in semanas | limitTo: 1 : week">
-      <th></th>
+      <th class="text-center">{{week+1}}</th>
       <th class="text-center" style="font-size:16px" ng-repeat="dia in semana | limitTo: 5">
         <div ng-if="dia.getDate() == today.getDate()" style="background-color:#819FF7">
           Hoy : {{dia | date:'d/MM'}}
