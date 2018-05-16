@@ -113,14 +113,19 @@ angular.module('mncalApp')
     offset[4] = lastWeek;
 
     semanas = offset;
-
-    console.log(semanas)
     // ----------------------
 
 
     $scope.today = new Date();
     $scope.semanas = semanas;
-    $scope.week = 0;
+
+    $scope.semanas.map(function(semana, i){
+      semana.forEach(function(dia){
+        if (dia.getDate() == $scope.today.getDate()){
+         $scope.week = i
+        }
+      })
+    });    
 
     $scope.hours = [1,2,3,4,5,6,7,8,9,10];
 

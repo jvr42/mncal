@@ -1,37 +1,42 @@
 <navbar></navbar>\
-
 <div class="container text-center">
-<h3>Hoy: {{today | date:'d-MM-yyyy'}}</h3>
 <table class="table" border="1">
   <thead style="background-color:#F2F2F2">
     <tr>
-        <th></th>
-        <th class="text-center">LUNES</th>
-        <th class="text-center">MARTES</th>
-        <th class="text-center">MIERCOLES</th>
-        <th class="text-center">JUEVES</th>
-        <th class="text-center">VIERNES</th>
+      <th></th>
+      <th class="text-center">LUNES</th>
+      <th class="text-center">MARTES</th>
+      <th class="text-center">MIERCOLES</th>
+      <th class="text-center">JUEVES</th>
+      <th class="text-center">VIERNES</th>
     </tr>
     <tr ng-repeat="semana in semanas | limitTo: 1 : week">
       <th></th>
-      <th class="text-center" style="font-size:16px" ng-repeat="dia in semana | limitTo: 5">{{dia | date:'d/MM'}}</th>
+      <th class="text-center" style="font-size:16px" ng-repeat="dia in semana | limitTo: 5">
+        <div ng-if="dia.getDate() == today.getDate()" style="background-color:#819FF7">
+          Hoy : {{dia | date:'d/MM'}}
+        </div>
+        <div ng-if="dia.getDate() != today.getDate()">
+          {{dia | date:'d/MM'}}
+        </div>
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="hour in hours">
       <td><b>{{hour}}<sup>a</sup></b></td>
-      <td style="padding: 0;vertical-align: middle;" ng-repeat="dia in semanas[week]">
+      <td style="vertical-align: middle;" ng-repeat="dia in semanas[week]">
+        
         <div ng-if="fillReservas(hour,dia)">
           <b style="color: #0040FF;cursor:pointer;" tooltip="{{fillReservas(hour,dia).profesor}}">{{fillReservas(hour,dia).curso | uppercase}}</b>
           <button class="btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteReserva(fillReservas(hour,dia)._id)"></button>
         </div>
-        <div ng-if="!fillReservas(hour,dia)" ng-click="reservar(hour,dia)">&nbsp;</div>
+        <div style="cursor:pointer;" ng-if="!fillReservas(hour,dia)" ng-click="reservar(hour,dia)">&nbsp;</div>
       </td>
     </tr>
   </tbody>
 </table>
-  <span class="btn btn-success glyphicon glyphicon-chevron-left" ng-click="previous()"></span>
-  <span class="btn btn-success glyphicon glyphicon-chevron-right" ng-click="next()"></span>
+<span class="btn btn-success glyphicon glyphicon-chevron-left" ng-click="previous()"></span>
+<span class="btn btn-success glyphicon glyphicon-chevron-right" ng-click="next()"></span>
 </div>
-
 <footer></footer>
